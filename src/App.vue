@@ -23,8 +23,9 @@
   </div> -->
   <h2></h2>
   <div v-if="email.length > 0">
-    <p>jestes zalogowany {{ email }}</p>
-    <button @click="logMeOut()">Wyloguj</button>
+    <!-- <p>jestes zalogowany {{ email }}</p>
+    <button @click="logMeOut()">Wyloguj</button> -->
+    <login-page :username="email" @logout="logMeOut()"></login-page>
   </div>
   <div v-else>
 
@@ -38,19 +39,17 @@
   </div>
 
 
-
-
-
   </div>
 </template>
 
 <script>
 
 import LoginForm from "./LoginForm";
+import LoginPage from "./LoginPage";
 import "milligram";
 
 export default {
-  components: {LoginForm},
+  components: {LoginForm, LoginPage},
   data(){
 	  return{
 		  email: '',
