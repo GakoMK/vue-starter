@@ -1,6 +1,6 @@
 <template>
   <div>
-  <h2>test</h2>
+  <!-- <h2>test</h2>
   <p>{{ email }}</p>
   <input type="email" v-model="email">
   <h2>{{ email }}</h2>
@@ -16,21 +16,44 @@
     <button @click="logMeOut()">Wyloguj</button>
   </div>
   <div v-else>
-    <input type="email" v-model="email">
-    <button @click="zalobujByEmail()">Zaloguj</button>
+    <form @submit.prevents="">
+      <input type="email" v-model="email">
+      <button @click="zalobujByEmail()">Zaloguj</button>
+    </form>
+  </div> -->
+  <h2></h2>
+  <div v-if="email.length > 0">
+    <p>jestes zalogowany {{ email }}</p>
+    <button @click="logMeOut()">Wyloguj</button>
   </div>
+  <div v-else>
+
+    <!-- <login-form @login="logMeIn($event)"></login-form> -->
+
+    <login-form @login="logMeIn($event)" :button-label="'Wejdź'" header="Rejestracja"></login-form>
+     <!-- bez : to bedzie string -> :button-label -->
+    <login-form @login="logMeIn($event)" :button-label="'Wejdź'" header="Rejestracja"></login-form>
+    <login-form @login="logMeIn($event)" :button-label="'Wleć'" header="Rejestracja 2"></login-form>
+    <login-form @login="logMeIn($event)" :button-label="'Zaloguj się jak człowiek'" header="Rejestracja 3"></login-form>
+  </div>
+
+
+
 
 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import LoginForm from "./LoginForm";
+import "milligram";
 
 export default {
+  components: {LoginForm},
   data(){
 	  return{
-		  email: 'test@test.pl',
+		  email: '',
 		  password: '',
       isHidden: false
 	  };
@@ -42,9 +65,15 @@ export default {
     zalobujByEmail(){
         this.isHidden= true
     },
+    // logMeOut(){
+    //     this.isHidden= false,
+    //     this.email = ''
+    // },
+    logMeIn(username) {
+      this.email = username;
+    },
     logMeOut(){
-        this.isHidden= false,
-        this.email = ''
+      this.email = '';
     }
   }
 }
